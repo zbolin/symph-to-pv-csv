@@ -1,8 +1,8 @@
 import csv
 import datetime
 
-SYMPH = "pv-samples/bb.csv"
-PV = "pv-samples/bb5.csv"
+SYMPH = "bb.csv"
+PV = "bb3.csv"
 
 
 def main():
@@ -16,8 +16,9 @@ def main():
             trade = ""
             if "Date" in s:
                 #    print(s)
-                assets += s[24:len(s)]
-            #    print(assets)
+                assets += s[18:len(s)].replace("$USD", "VOO")
+                print(assets)
+#            if 1 == 2:
             if "Yes" in s:
                 date = s[0:10]
                 d = datetime.datetime.strptime(date, '%Y-%m-%d')
@@ -25,12 +26,12 @@ def main():
                 trade += date
                 trade += ',"'
                 trade += assets
-                print(assets.count(','))
                 trade += '","'
-                trade += s[20:len(s)].replace("-", "0%")
-                print(s[20:len(s)].replace("-", "0%").count(','))
+#                print(s)
+#                print(s[17:len(s)])
+                trade += s[17:len(s)].replace("-", "0%")
+
                 trade += '"'
-                #        print(s[20:len(s)])
                 write(trade)
 
 
@@ -39,6 +40,7 @@ def write(line):
     line += '\n'
     file1.write(line)
     file1.close()
+    #print(line)
 
 
 if __name__ == "__main__":
