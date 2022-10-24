@@ -1,6 +1,5 @@
 import csv
 import datetime
-import sys
 
 
 def main(fileName):
@@ -9,20 +8,27 @@ def main(fileName):
     with open(fileName, mode='r', encoding='utf-8-sig') as file:
         csvFile = csv.reader(file)
         assets = ""
+        usdIndex = 0
         for line in csvFile:
-            s = ', '.join(line)
             trade = ""
-            if "Date" in s:
+            if "Date" in line:
+                usdIndex = line.index("$USD")
+                line.remove("$USD")
+                s = ', '.join(line).replace(" ","")
                 assets += "Date,"
                 assets += s[18:len(s)]
                 write(assets, outputFile)
-            if "Yes" in s:
+            if "Yes" in line:
+                del line[usdIndex]
+                s = ', '.join(line)
                 date = s[0:10]
                 trade += date
                 trade += ','
                 trade += s[17:len(s)].replace("-", "").replace(" ", "")
                 write(trade, outputFile)
-            if "No" in s:
+            if "No" in line:
+                del line[usdIndex]
+                s = ', '.join(line)
                 date = s[0:10]
                 trade += date
                 trade += ','
@@ -36,9 +42,9 @@ def write(line, outputFile):
     line += '\n'
     file1.write(line)
     file1.close()
-    #print(line)
 
 
 if __name__ == "__main__":
     file = input("Enter name of Composer file to convter to Portfolio Visualizer: ")
     main(file)
+    #main("HFEA.csv")
