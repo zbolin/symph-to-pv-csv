@@ -48,6 +48,4 @@ def write(line, outputFile):
 
 if __name__ == "__main__":
     file = input("Enter name of file to convert: ")
-    
     main(file)
-    #main("HFEA.csv")
