@@ -3,7 +3,9 @@
 [Portfolio Visualizer Backtest Dynamic Allocation](https://www.portfoliovisualizer.com/backtest-dynamic-allocation)
 
 ## Prerequisites:
-[] Python 3
+- [ ] Python 3
+
+
 
 ## Example:
 
