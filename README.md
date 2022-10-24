@@ -5,10 +5,8 @@
 ## Prerequisites:
 - [ ] Python 3
 
-
-
-## Example:
+## Example Usage (Terminal):
 
     Python3 convert.py
-    Enter name of file to convert: HFEA.csv
-    SUCCESS! New file created : HFEA_pv.csv
+    Enter name of file to convert: <csv_file_name>
+    SUCCESS! New file created : <csv_file_name>_pv.csv
