@@ -1,7 +1,38 @@
 import csv
 import datetime
+import decimal
+from decimal import Decimal
 import os
 
+def validate(fileName):
+    outputFile = fileName
+    with open(fileName, mode='r', encoding='utf-8-sig') as file:
+        if os.path.exists(outputFile):
+            os.remove(outputFile)
+        csvFile = csv.reader(file)
+        for line in csvFile:
+            if "Date" not in line:
+                numItems = 0
+                sum = 0;
+                for i, item in enumerate(line):
+                    if "-" not in item and item != '':
+                        val = item.strip('%')
+                        numItems+=1
+                        sum = Decimal(val) + sum
+                if sum != 100.0:
+                    remainder = Decimal(100.0) - sum
+                    #print(sum, " ", numItems, remainder)
+                    addToItems = round(Decimal(remainder) / Decimal(numItems),2)
+                    #print(sum, addToItems)
+                    for i, item in enumerate(line):
+                        if "Date" not in line and "-" not in line[i] and line[i] != '':
+                            line[i] = line[i].strip('%')
+                            line[i] = Decimal(line[i])+addToItems
+                            line[i] = str(line[i])+'%'
+                
+            write(','.join(line), outputFile)
+    return outputFile
+                      
 def main(fileName):
     outputFile = fileName.replace(".csv", "")
     outputFile += "_pv.csv"
@@ -23,6 +54,7 @@ def main(fileName):
             if "Yes" in line:
                 del line[usdIndex]
                 s = ', '.join(line)
+                s = s.replace(', 0.0%',', -')
                 date = s[0:10]
                 trade += date
                 trade += ','
@@ -31,13 +63,13 @@ def main(fileName):
             if "No" in line:
                 del line[usdIndex]
                 s = ', '.join(line)
+                s = s.replace(', 0.0%',', -')
                 date = s[0:10]
                 trade += date
                 trade += ','
                 trade += s[16:len(s)].replace("-", "").replace(" ","")
                 write(trade, outputFile)
-
-    print("SUCCESS! New file created :", outputFile)
+    return outputFile
 
 def write(line, outputFile):
     file1 = open(outputFile, "a")  # append mode
@@ -47,5 +79,7 @@ def write(line, outputFile):
 
 
 if __name__ == "__main__":
+    #file = "tqq42.csv"
     file = input("Enter name of file to convert: ")
-    main(file)
+    outputFile = validate(main(file))
+    print("SUCCESS! New file created :", outputFile)
