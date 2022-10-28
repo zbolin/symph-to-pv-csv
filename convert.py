@@ -79,7 +79,6 @@ def write(line, outputFile):
 
 
 if __name__ == "__main__":
-    #file = "tqq42.csv"
     file = input("Enter name of file to convert: ")
     outputFile = validate(main(file))
     print("SUCCESS! New file created :", outputFile)
