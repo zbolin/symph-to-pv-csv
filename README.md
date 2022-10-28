@@ -2,8 +2,14 @@
 
 [Portfolio Visualizer Backtest Dynamic Allocation](https://www.portfoliovisualizer.com/backtest-dynamic-allocation)
 
+## TODO:
+- [ ] Move data up one day
+
+
 ## Prerequisites:
-- [ ] Python 3
+- [x] Python 3
+
+
 
 ## Example Usage (Terminal):
 
