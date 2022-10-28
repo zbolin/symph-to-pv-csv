@@ -21,9 +21,7 @@ def validate(fileName):
                         sum = Decimal(val) + sum
                 if sum != 100.0:
                     remainder = Decimal(100.0) - sum
-                    #print(sum, " ", numItems, remainder)
                     addToItems = round(Decimal(remainder) / Decimal(numItems),2)
-                    #print(sum, addToItems)
                     for i, item in enumerate(line):
                         if "Date" not in line and "-" not in line[i] and line[i] != '':
                             line[i] = line[i].strip('%')
